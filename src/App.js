@@ -1,136 +1,284 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {Link, Route, Routes, useParams} from 'react-router-dom'
 import './App.css'
+import ReactDOM from 'react-dom/client'
 
-class App extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
-	render() {
-		return (
-			<>
-				<div className={'links text'}>
-					<Link className={'cybr-btn'} to={'/about'}>О городе</Link>
-					<Link className={'cybr-btn'} to={'/attractions'}>Достопримечателности</Link>
-					<Link className={'cybr-btn'} to={'/attractions2'}>Другие достопримечательности</Link>
-					<Link className={'cybr-btn'} to={'/images'}>Фотографии</Link>
-					<Link className={'cybr-btn'} to={'/'}>Главная</Link>
-				</div>
-				<Routes>
-					<Route path={'/:page'} element={<Page />} />
-					<Route path={'/wiki/:page'} element={<WikiPage />} />
-					<Route path={'/'} element={<Page />} />
-				</Routes>
-			</>
-		)
-	}
-}
-
-function Page(props) {
-	let {page} = useParams();
-
-	if (page == 'images')
-		return <Images />
-	if (page == 'about')
-		return <About />
-	if (page == 'attractions')
-		return <Attractions />
-	if (page == 'attractions2')
-		return <Attractions2 />
-	return <FormImage />
-}
-
-function Images() {
+function App() {
 	return (
 		<>
-			<img className={'img'} src={'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/%D0%9B%D0%B8%D0%BF%D0%B5%D1%86%D0%BA%D0%B8%D0%B9_%D0%B2%D0%BE%D0%BA%D0%B7%D0%B0%D0%BB.JPG/1280px-%D0%9B%D0%B8%D0%BF%D0%B5%D1%86%D0%BA%D0%B8%D0%B9_%D0%B2%D0%BE%D0%BA%D0%B7%D0%B0%D0%BB.JPG'} alt={''} />
-			<img className={'img'} src={'https://upload.wikimedia.org/wikipedia/commons/1/1f/%D0%9B%D0%B8%D0%BF%D0%B5%D1%86%D0%BA%D0%B8%D0%B9_%D0%B0%D0%B2%D1%82%D0%BE%D0%B2%D0%BE%D0%BA%D0%B7%D0%B0%D0%BB.jpg'} alt={''} />
-			<img className={'img'} src={'https://upload.wikimedia.org/wikipedia/commons/a/ad/Lgtu_center_corpus_foto.jpg'} alt={''} />
+			<div className={'links text'}>
+				<Link className={'cybr-btn'} to={'/'}>Главная</Link>
+				<Link className={'cybr-btn'} to={'/lovefilm'}>Любимый фильм</Link>
+				<Link className={'cybr-btn'} to={'/personal'}>Персональная страница</Link>
+				<Link className={'cybr-btn'} to={'/nowtime'}>Текущее время</Link>
+				<Link className={'cybr-btn'} to={'/homepet'}>Домашний любимец</Link>
+			</div>
+			<Routes>
+				<Route path={'/'} element={<Default />} />
+				<Route path={'/:page'} element={<Page />} />
+			</Routes>
 		</>
 	)
 }
 
-function About() {
+function Default() {
 	return (
-		<div className={'text'}>
-			<h2>Липецк</h2>
-			<p><b>Ли́пецк</b>&nbsp;— город (с <Link to={'/wiki/1779_год'} title={'1779 год'}>1779 года</Link>) в <Link to={'/wiki/Россия'} title={'Россия'}>России</Link>, административный центр <Link to={'/wiki/Липецкая область'} title={'Липецкая область'}>Липецкой области</Link>. Является ядром <Link to={'/wiki/Липецкая агломерация'} title={'Липецкая агломерация'}>крупнейшей российской агломерации</Link> со специализацией в сфере чёрной металлургии полного цикла, промышленный, агротехнологический и авиационный центр.</p>
-			<p><Link to={'/wiki/Город областного значения'} title={'Город областного значения'}>Город областного значения</Link>, образует <Link to={'/wiki/Городской округ (Россия)'} title={'Городской округ (Россия)'}>городской округ</Link>.</p>
-			<p>Липецк&nbsp;— второй по численности населения (496&nbsp;403) город в <Link to={'/wiki/Центрально-Чернозёмный экономический район'} title={'Центрально-Чернозёмный экономический район'}>Черноземье</Link>, пятый в <Link to={'/wiki/Центральный федеральный округ'} title="Центральный федеральный округ">Центральном федеральном округе</Link> и тридцать шестой в России. Важный автотранспортный узел агломерационного и регионального значения, расположенный между федеральными трассами «<a href={'/wiki/Дон (автодорога)'} title={'Дон (автодорога)'}>Дон</a>» и «<a href={'/wiki/Каспий (автодорога)'} title={'Каспий (автодорога)'}>Каспий</a>», обладает развитой сетью индустриальных железных дорог, крупнейший перегрузочный тупик. <Link to={'/wiki/Липецк (особая экономическая зона)'} title={'Липецк (особая экономическая зона)'}>Центр</Link> <Link to={'/wiki/Особая экономическая зона'} title={'Особая экономическая зона'}>особой экономической зоны</Link> промышленно-производственного типа. Один из самых молодых <Link to={'/wiki/Административные центры субъектов Российской Федерации'} title={'Административные центры субъектов Российской Федерации'}>региональных центров</Link> России.</p>
-			<Link to={'/wiki/Липецк'} title={'Липецк'}> Подробнее</Link>
-		</div>
+		<></>
 	)
 }
 
-function WikiPage() {
+function Page() {
 	let {page} = useParams();
-
-	return (
-		<div className={'wikiPage'}><iframe className={''} src={`https://ru.wikipedia.org/wiki/${page}`} width={1870} height={880} /></div>
-	)
+	console.log(page)
+	if (page === 'lovefilm') return <LoveFilm
+		name={'Титаник'}
+		author={{f: 'Кэмерон', io: 'Дже́ймс Фрэ́нсис'}}
+		poster={'https://upload.wikimedia.org/wikipedia/ru/1/19/Titanic_%28Official_Film_Poster%29.png'}
+		year={'1997'}
+		studio={''}
+		scenarist={{f: 'Кэмерон', io: 'Дже́ймс Фрэ́нсис'}}
+		produce={[
+			{f: 'Кэмерон', io: 'Дже́ймс Фрэ́нсис'},
+			{f: 'Ландау', io: 'Джон'}
+		]}
+		inGlRole={[
+			{f: 'Ди Ка́прио', io: 'Леона́рдо Вильге́льм'},
+			{f: 'Уи́нслет', io: 'Кейт Эли́забет'},
+			{f: 'Зейн-младший', io: 'Уи́льям Джордж (Би́лли)'},
+			{f: 'Бейтс', io: 'Кэти (Кэ́тлин) Дойл'},
+			{f: 'Фи́шер', io: 'Фрэ́нсис Лу́из'},
+			{f: 'Хилл', io: 'Бернард'},
+			{f: 'Хайд', io: 'Джо́натан'},
+			{f: 'Нуччи', io: 'Дэнни'},
+			{f: 'Уорнер', io: 'Дэвид Хэттерсли'},
+			{f: 'Пэ́кстон', io: 'Билл (Уи́льям)'}
+		]}
+		lang={'английский'}
+		land={'США'}
+		teatrV={'195 мин'}
+		allV={'220 мин'}
+		compositor={{f: 'Хорнер', io: 'Джеймс Рой'}}
+		operator={{f: 'Карпентер', io: 'Расселл Пол'}}
+	/>
+	else if (page === 'personal') return <Personal
+		phone={'+7 (919) 257-53-66'}
+		land={'г. Липецк, Липецкая обл., Россия'}
+	/>
+	else if (page === 'nowtime') return <NowTime />
+	else if (page === 'homepet') return <HomePet
+		name={'Пушок'}
+	/>
+	return <Default />
 }
 
-function Attractions() {
+function LoveFilm(props) {
+	let name = props.name,
+		author = props.author,
+		img = props.poster,
+		year = props.year,
+		scenarist = props.scenarist,
+		producer = props.produce,
+		inGlRole = props.inGlRole,
+		lang = props.lang,
+		land = props.land,
+		teatrV = props.teatrV,
+		allV = props.allV,
+		compositor = props.compositor,
+		operator = props.operator
 	return (
-		<div className={'text'}>
-			<h2>Липецкий Успенский монастырь</h2>
-			<img src={'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/11/e7/de/6a/caption.jpg?w=500&h=-1&s=1'} className={'img'} />
-			<p><b>Успе́нский Ли́пецкий монасты́рь</b>&nbsp;— мужской <Link to={'/wiki/Монастырь'} title={'Монастырь'}>монастырь</Link> <Link to={'/wiki/Липецкая епархия'} title={'Липецкая епархия'}>Липецкой епархии</Link> <Link to={'/wiki/Русская православная церковь'} title={'Русская православная церковь'}>Русской православной церкви</Link>, расположен в историческом центре <Link to={'/wiki/Липецк'} title={'Липецк'}>Липецка</Link> и относится к архитектурным памятникам города.</p>
-			<Link to={'/wiki/Липецкий Успенский монастырь'} title={'Липецкий Успенский монастырь'}> Подробнее</Link>
+		<div className={'page-content'}>
+			<aside role={'region'} className={'portable-infobox pi-background pi-border-color pi-theme-anime pi-layout-default'} style={{width: '400px'}}>
+				<h2 className={'pi-item pi-item-spacing pi-title pi-secondary-background'} data-source={'name'}>{name}</h2>
+				<figure className={'pi-item pi-image'} data-source={'img'}>
+					<a href={img} className={'image image-thumbnail'}>
+						<img src={img} className={'pi-image-thumbnail'} alt={''} width={'270'} height={204} data-image-key={name} data-image-name={name} />
+					</a>
+				</figure>
+				<section className={'pi-item pi-group pi-border-color'}>
+					<h2>Описание</h2>
+					<div className={'pi-item pi-data pi-item-spacing pi-border-color'}>
+						<h3 className={'pi-data-label pi-secondary-font'}>ФИО автора</h3>
+						<div className={'pi-data-value pi-font'}>
+							<i>{author.f}</i>, {author.io}
+						</div>
+					</div>
+					<div className={'pi-item pi-data pi-item-spacing pi-border-color'}>
+						<h3 className={'pi-data-label pi-secondary-font'}>Жанр</h3>
+						<div className={'pi-data-value pi-font'}>
+							<Link to={'https://ru.wikipedia.ru/wiki/Эпический_фильм'} title={'Эпический_фильм'}>эпический</Link>&nbsp;<Link to={'https://ru.wikipedia.ru/wiki/Романтический_фильм#Романтическая_драма'} title={'Романтический_фильм'}>романтический драматический</Link>&nbsp;<Link to={'https://ru.wikipedia.ru/wiki/Фильм-катастрофа'} title={'Фильм-катастрофа'}>фильм-катастрофа</Link>
+						</div>
+					</div>
+					<div className={'pi-item pi-data pi-item-spacing pi-border-color'}>
+						<h3 className={'pi-data-label pi-secondary-font'}>Автор сценария</h3>
+						<div className={'pi-data-value pi-font'}>
+							<i>{scenarist.f}</i>, {scenarist.io}
+						</div>
+					</div>
+					<div className={'pi-item pi-data pi-item-spacing pi-border-color'}>
+						<h3 className={'pi-data-label pi-secondary-font'}>Продюсер</h3>
+						<div className={'pi-data-value pi-font'}>
+							{
+								producer.map(el => {
+									return <React.Fragment><i>{el.f}</i>, {el.io}<br /></React.Fragment>
+								})
+							}
+						</div>
+					</div>
+					<div className={'pi-item pi-data pi-item-spacing pi-border-color'}>
+						<h3 className={'pi-data-label pi-secondary-font'}>В главных ролях</h3>
+						<div className={'pi-data-value pi-font'}>
+							{inGlRole.map(el => {
+								return <React.Fragment><i>{el.f}</i>, {el.io}<br /></React.Fragment>
+							})}
+						</div>
+					</div>
+					<div className={'pi-item pi-data pi-item-spacing pi-border-color'}>
+						<h3 className={'pi-data-label pi-secondary-font'}>Оператор</h3>
+						<div className={'pi-data-value pi-font'}>
+							<i>{operator.f}</i>, {operator.io}
+						</div>
+					</div>
+					<div className={'pi-item pi-data pi-item-spacing pi-border-color'}>
+						<h3 className={'pi-data-label pi-secondary-font'}>Композитор</h3>
+						<div className={'pi-data-value pi-font'}>
+							<i>{compositor.f}</i>, {compositor.io}
+						</div>
+					</div>
+					<div className={'pi-item pi-data pi-item-spacing pi-border-color'}>
+						<h3 className={'pi-data-label pi-secondary-font'}>Художник-постановщик</h3>
+						<div className={'pi-data-value pi-font'}>Питер Ламонт</div>
+					</div>
+					<div className={'pi-item pi-data pi-item-spacing pi-border-color'}>
+						<h3 className={'pi-data-label pi-secondary-font'}>Длительность</h3>
+						<div className={'pi-data-value pi-font'}>
+							<b>Театральная версия:</b> {teatrV}
+							<br />
+							<b>Расширенная версия:</b> {allV}
+						</div>
+					</div>
+					<div className={'pi-item pi-data pi-item-spacing pi-border-color'}>
+						<h3 className={'pi-data-label pi-secondary-font'}>Страна</h3>
+						<div className={'pi-data-value pi-font'}>
+							<Link to={'https://ru.wikipedia.ru/wiki/' + land}>{land}</Link>
+						</div>
+					</div>
+					<div className={'pi-item pi-data pi-item-spacing pi-border-color'}>
+						<h3 className={'pi-data-label pi-secondary-font'}>Язык</h3>
+						<div className={'pi-data-value pi-font'}>
+							<Link to={'https://ru.wikipedia.ru/wiki/' + lang}>{lang}</Link>
+						</div>
+					</div>
+					<div className={'pi-item pi-data pi-item-spacing pi-border-color'}>
+						<h3 className={'pi-data-label pi-secondary-font'}>Год</h3>
+						<div className={'pi-data-value pi-font'}>
+							<Link to={year + "_год"} title={year + " год"}>{year}</Link>
+						</div>
+					</div>
+					<div className={'pi-item pi-data pi-item-spacing pi-border-color'}>
+						<h3 className={'pi-data-label pi-secondary-font'}><Link to={'https://ru.wikipedia.org/wiki/Internet_Movie_Database'} title={'Internet Movie Database'}>IMDb</Link></h3>
+						<div className={'pi-data-value pi-font'}>
+							<Link to={'https://www.imdb.com/title/tt0120338/'} title={'ID 0120338'}>ID 0120338</Link>
+						</div>
+					</div>
+				</section>
+			</aside>
 		</div>
 	)
 }
 
-function Attractions2() {
-	return <>
-		<div className={'text'}>
-			<div className={'text'} style={{display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap'}}>
-				<div className={'el'}>
-					<p>Часовня Первоверховных Апостолов Петра и Павла</p>
-					<img className={'img'} src={'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/6d/ee/59/caption.jpg?w=500&h=400&s=1'} alt={''} />
-				</div>
-				<div className={'el'}>
-					<p>Памятник Петру I</p>
-					<img className={'img'} src={'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/fc/30/fe/caption.jpg?w=500&h=-1&s=1'} alt={''} />
-				</div>
-				<div className={'el'}>
-					<p>Христо-Рождественский кафедральный собор</p>
-					<img className={'img'} src={'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/07/ad/52/74/christ-cathedral-christmas.jpg?w=500&h=-1&s=1'} alt={''} />
-				</div>
-				<div className={'el'}>
-					<p>Памятник в честь 300-летия Липецка</p>
-					<img className={'img'} src={'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0e/8b/62/2f/image-0-02-05-2a78265873e37e6b.jpg?w=500&h=-1&s=1'} alt={''} />
+function Personal(props) {
+	return (
+		<div className={'page-content'}>
+			<aside role={'region'} className={'portable-infobox pi-background pi-border-color pi-theme-anime pi-layout-default'} style={{width: '400px'}}>
+				<h2 className={'pi-item pi-item-spacing pi-title pi-secondary-background'} data-source={'name'}>Черников Алексей</h2>
+				<figure className={'pi-item pi-image'} data-source={'img'}>
+					<a href={'https://sun1-57.userapi.com/impg/tARBliaUwEDkp8i-8_LYAk9Wkr0erqzIKFOA5Q/NM9Yad44wT0.jpg?size=827x1599&quality=96&sign=052b08cfa5b07831af1af63c62dd5b2c&type=album'} className={'image image-thumbnail'}>
+						<img src={'https://sun1-57.userapi.com/impg/tARBliaUwEDkp8i-8_LYAk9Wkr0erqzIKFOA5Q/NM9Yad44wT0.jpg?size=827x1599&quality=96&sign=052b08cfa5b07831af1af63c62dd5b2c&type=album'} className={'pi-image-thumbnail'} alt={''} width={'270'} height={204} data-image-key={'Черников Алексей'} data-image-name={'Черников Алексей'} />
+					</a>
+				</figure>
+				<section className={'pi-item pi-group pi-border-color'}>
+					<h2>Описание</h2>
+					<div className={'pi-item pi-data pi-item-spacing pi-border-color'}>
+						<h3 className={'pi-data-label pi-secondary-font'}>ФИО</h3>
+						<div className={'pi-data-value pi-font'}>
+							<i>Черников</i>, Алексей Михайлович
+						</div>
+					</div>
+					<div className={'pi-item pi-data pi-item-spacing pi-border-color'}>
+						<h3 className={'pi-data-label pi-secondary-font'}>Дата рождения</h3>
+						<div className={'pi-data-value pi-font'}>
+							<Link to={'https://ru.wikipedia.ru/wiki/01_июня'} title={'1 Июня'}>1 июня</Link>&nbsp;<Link to={'https://ru.wikipedia.org/wiki/2001_год'}>2001 г.</Link> (21 год)
+						</div>
+					</div>
+					<div className={'pi-item pi-data pi-item-spacing pi-border-color'}>
+						<h3 className={'pi-data-label pi-secondary-font'}>Место рождения</h3>
+						<div className={'pi-data-value pi-font'}>{props.land}</div>
+					</div>
+					<div className={'pi-item pi-data pi-item-spacing pi-border-color'}>
+						<h3 className={'pi-data-label pi-secondary-font'}>Гражданство</h3>
+						<div className={'pi-data-value pi-font'}>Россия</div>
+					</div>
+					<div className={'pi-item pi-data pi-item-spacing pi-border-color'}>
+						<h3 className={'pi-data-label pi-secondary-font'}>Телефон</h3>
+						<div className={'pi-data-value pi-font'}>{props.phone}</div>
+					</div>
+					<div className={'pi-item pi-data pi-item-spacing pi-border-color'}>
+						<h3 className={'pi-data-label pi-secondary-font'}>Эл. почта</h3>
+						<div className={'pi-data-value pi-font'}>a.cher.ai19@gmail.com<br />a.cher.19ai@gmail.com<br />alenyov@bk.ru</div>
+					</div>
+				</section>
+			</aside>
+		</div>
+	)
+}
+
+function NowTime() {
+	function tick() {
+		let root = document.querySelector('#time')
+		let el = <div>
+			<div className={'text'}>Сегоднящнее число: </div>
+			<div className={'text'}>{(new Date()).toLocaleDateString('ru-RU', {day: '2-digit', month: 'long', year: 'numeric'})}</div>
+			<div className={'text'}>
+				<div className={'now'}>Текущее время: </div>
+				<div className={'date'} style={{display: 'flex'}}>
+					<div className={'h'}>{(new Date()).getHours()} ч.&nbsp;</div>
+					<div className={'h'}>{(new Date()).getMinutes()} м.&nbsp;</div>
+					<div className={'h'}>{(new Date()).getSeconds()} с.&nbsp;</div>
+					<div className={'ms'}>{(new Date()).getMilliseconds()} ms.</div>
 				</div>
 			</div>
-			<Link to={'/wiki/Липецкий Успенский монастырь'} title={'Липецкий Успенский монастырь'}> Подробнее</Link>
 		</div>
-	</>
+		ReactDOM.createRoot(root).render(el);
+		setInterval(tick, 1)
+	}
+	setTimeout(tick, 1000)
+	return <div id={'time'} />
 }
 
-function FormImage() {
-	const [file, setFile] = useState();
-	function handleChange(e) {
-		console.log(e.target.files);
-		setFile(URL.createObjectURL(e.target.files[0]));
-		console.log(URL.createObjectURL(e.target.files[0]))
-	}
-
-	function submit(e) {
-		e.preventDefault()
-		alert('Выше изодбражение загружено')
-	}
-
+function HomePet(props) {
 	return (
-		<div className={'text'}>
-			<form method={'get'} onSubmit={submit}>
-				<input name="imgname" type="text" className="item_name" placeholder="Название" />
-				<input name="tag" type="text" className="tag" placeholder="Тэги" />
-				<textarea className="desc" name="desc" placeholder="Описание" />
-				<input type={'file'} name={'myImage'} onChange={handleChange} className={'im'} />
-				<img src={file} />
-				<button type="submit" className="cybr-btn"><span /><span /><span /><span />Занесение в БД</button>
-			</form>
+		<div className={'page-content'}>
+			<aside role={'region'} className={'portable-infobox pi-background pi-border-color pi-theme-anime pi-layout-default'} style={{width: '400px'}}>
+				<h2 className={'pi-item pi-item-spacing pi-title pi-secondary-background'} data-source={'name'}>{props.name}</h2>
+				<figure className={'pi-item pi-image'} data-source={'img'}>
+					<a href={'https://sun9-35.userapi.com/impg/2MHIcYxbuF5JuTayfYFd_1dhNFXz_ClkZJ_zGA/TJMqcpWkYPM.jpg?size=1200x1600&quality=96&sign=6d54e5f79341862e7fd1a39728e073a7&type=album'} className={'image image-thumbnail'}>
+						<img src={'https://sun9-35.userapi.com/impg/2MHIcYxbuF5JuTayfYFd_1dhNFXz_ClkZJ_zGA/TJMqcpWkYPM.jpg?size=1200x1600&quality=96&sign=6d54e5f79341862e7fd1a39728e073a7&type=album'} className={'pi-image-thumbnail'} alt={''} width={'270'} height={204} data-image-key={props.name} data-image-name={props.name} />
+					</a>
+				</figure>
+				<section className={'pi-item pi-group pi-border-color'}>
+					<h2>Описание</h2>
+					<div className={'pi-item pi-data pi-item-spacing pi-border-color'}>
+						<h3 className={'pi-data-label pi-secondary-font'}>Кличка</h3>
+						<div className={'pi-data-value pi-font'}>
+							<i>{props.name}</i>
+						</div>
+					</div>
+					<div className={'pi-item pi-data pi-item-spacing pi-border-color'}>
+						<h3 className={'pi-data-label pi-secondary-font'}>Порода</h3>
+						<div className={'pi-data-value pi-font'}>Сиамско-тайский</div>
+					</div>
+				</section>
+			</aside>
 		</div>
 	)
 }
